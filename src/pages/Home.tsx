@@ -2,9 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from '../components/Card';
 import { Button } from '../components/Button';
+import { useAppContext } from '../context/AppContext';
 import '../styles/pages.css';
 
 export const Home: React.FC = () => {
+  const { favorites, comparisonList } = useAppContext();
+  
   return (
     <div className="page-home-landing">
       <div className="container">
@@ -18,6 +21,16 @@ export const Home: React.FC = () => {
               提供成都市区各大高校历年专业录取分数线查询，
               帮助您科学填报志愿，规划未来。
             </p>
+          </div>
+          <div className="hero-quick-links">
+            <Link to="/favorites" className="quick-link">
+              <span>❤️</span>
+              <span>我的收藏 ({favorites.length})</span>
+            </Link>
+            <Link to="/comparison" className="quick-link">
+              <span>📊</span>
+              <span>对比分析 ({comparisonList.length}/4)</span>
+            </Link>
           </div>
         </header>
 
@@ -52,6 +65,23 @@ export const Home: React.FC = () => {
               </p>
               <div className="entry-card-action">
                 <Button variant="primary" size="large">进入收分主页</Button>
+              </div>
+            </Card>
+          </Link>
+
+          <Link to="/recommendation" className="entry-card-link" style={{ textDecoration: 'none' }}>
+            <Card hoverable className="entry-card entry-card-recommendation">
+              <div className="entry-card-icon">
+                <svg width="48" height="48" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+              </div>
+              <h2 className="entry-card-title">智能推荐</h2>
+              <p className="entry-card-description">
+                填写您的分数和兴趣方向，AI智能推荐合适的学校和专业。
+              </p>
+              <div className="entry-card-action">
+                <Button variant="secondary" size="large">开始推荐</Button>
               </div>
             </Card>
           </Link>

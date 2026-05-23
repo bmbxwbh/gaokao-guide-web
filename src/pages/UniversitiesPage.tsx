@@ -5,6 +5,7 @@ import { Input } from '../components/Input';
 import { Chip } from '../components/Chip';
 import { useFilteredUniversities, useUniversityTypes } from '../hooks/useUniversity';
 import { getUniversityTypeName } from '../utils/formatters';
+import { useAppContext } from '../context/AppContext';
 import type { UniversityType } from '../types';
 import '../styles/pages.css';
 
@@ -14,6 +15,7 @@ export const UniversitiesPage: React.FC = () => {
 
   const filteredUniversities = useFilteredUniversities(searchQuery, selectedType);
   const uniqueTypes = useUniversityTypes();
+  const { isFavorite, toggleFavorite, addToComparison, isInComparison } = useAppContext();
 
   return (
     <div className="page-universities">
@@ -72,12 +74,48 @@ export const UniversitiesPage: React.FC = () => {
             </div>
           ) : (
             filteredUniversities.map((university, index) => (
-              <Link
-                key={university.id}
-                to={`/university/${university.id}`}
-                style={{ textDecoration: 'none' }}
+              <Card 
+                key={university.id} 
+                hoverable 
+                className="university-card" 
+                style={{ animationDelay: `${index * 50}ms` }}
               >
-                <Card hoverable className="university-card" style={{ animationDelay: `${index * 50}ms` }}>
+                <div className="card-actions">
+                  <button 
+                    className={`favorite-btn ${isInComparison('UNIVERSITY', university.id) ? 'comparing' : ''}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      addToComparison({
+                        id: Date.now().toString(),
+                        type: 'UNIVERSITY',
+                        targetId: university.id
+                      });
+                    }}
+                    title="添加对比"
+                  >
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                  </button>
+                  <button 
+                    className={`favorite-btn ${isFavorite('UNIVERSITY', university.id) ? 'active' : ''}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      toggleFavorite('UNIVERSITY', university.id);
+                    }}
+                    title="收藏"
+                  >
+                    <svg width="20" height="20" fill={isFavorite('UNIVERSITY', university.id) ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                  </button>
+                </div>
+                <Link
+                  to={`/university/${university.id}`}
+                  style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
+                >
                   <div className="university-header">
                     <div className="university-info">
                       <h3>{university.name}</h3>
@@ -112,8 +150,8 @@ export const UniversitiesPage: React.FC = () => {
                       </div>
                     </div>
                   )}
-                </Card>
-              </Link>
+                </Link>
+              </Card>
             ))
           )}
         </section>

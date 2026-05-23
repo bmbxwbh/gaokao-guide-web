@@ -12,11 +12,13 @@ import {
   getSubjectTypeName, 
   getBatchName 
 } from '../utils/formatters';
+import { useAppContext } from '../context/AppContext';
 import '../styles/pages.css';
 
 export const ScoresPage: React.FC = () => {
   const allScores = useAllMajorScores();
   const universities = useUniversitiesList();
+  const { isFavorite, toggleFavorite, addToComparison, isInComparison } = useAppContext();
 
   // 筛选状态
   const [searchQuery, setSearchQuery] = useState('');
@@ -95,8 +97,13 @@ export const ScoresPage: React.FC = () => {
               返回首页
             </Link>
           </div>
-          <h1>专业分数汇总</h1>
-          <p className="subtitle">查看所有学校专业的历年录取分数线</p>
+          <div style={{ flex: 1 }}>
+            <h1>专业分数汇总</h1>
+            <p className="subtitle">查看所有学校专业的历年录取分数线</p>
+          </div>
+          <Link to="/recommendation">
+            <Button>✨ 智能推荐</Button>
+          </Link>
         </header>
 
         {/* 筛选区域 */}
@@ -221,6 +228,39 @@ export const ScoresPage: React.FC = () => {
                 className="score-card-item"
                 style={{ animationDelay: `${index * 50}ms` }}
               >
+                <div className="card-actions">
+                  <button 
+                    className={`favorite-btn ${isInComparison('MAJOR', item.majorId) ? 'comparing' : ''}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      addToComparison({
+                        id: Date.now().toString(),
+                        type: 'MAJOR',
+                        targetId: item.majorId,
+                        universityId: item.universityId
+                      });
+                    }}
+                    title="添加对比"
+                  >
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                  </button>
+                  <button 
+                    className={`favorite-btn ${isFavorite('MAJOR', item.majorId, item.universityId) ? 'active' : ''}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      toggleFavorite('MAJOR', item.majorId, item.universityId);
+                    }}
+                    title="收藏"
+                  >
+                    <svg width="20" height="20" fill={isFavorite('MAJOR', item.majorId, item.universityId) ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                  </button>
+                </div>
                 <Link
                   to={`/university/${item.universityId}/major/${item.majorId}`}
                   style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
