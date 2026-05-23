@@ -37,8 +37,38 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Package build artifacts
+        run: |
+          cd dist
+          tar -czf ../gaokao-guide-web-dist.tar.gz .
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: build-${{ github.sha }}
+          name: "Build ${{ github.sha }}"
+          body: |
+            ## 蓉城高考指南 - 自动构建
+            
+            - **提交**: ${{ github.sha }}
+            - **分支**: ${{ github.ref_name }}
+            - **触发者**: ${{ github.actor }}
+            - **时间**: ${{ github.event.head_commit.timestamp }}
+            
+            ### 下载
+            - `gaokao-guide-web-dist.tar.gz` - 网站构建产物（解压后部署到任意 Web 服务器）
+            
+            ### 部署方式
+            ```bash
+            # 下载并解压
+            tar -xzf gaokao-guide-web-dist.tar.gz -C /var/www/html/
+            ```
+          files: gaokao-guide-web-dist.tar.gz
+          draft: false
+          prerelease: false
