@@ -2,6 +2,8 @@
 
 一个基于 React + TypeScript + Vite 构建的成都市高校录取分数线查询网站，采用 Miuix 风格设计。
 
+最后更新时间：2026-05-23
+
 [![CI - Build and Test](https://github.com/your-username/gaokao-guide-web/actions/workflows/ci.yml/badge.svg)](https://github.com/your-username/gaokao-guide-web/actions/workflows/ci.yml)
 [![CD - Deploy to GitHub Pages](https://github.com/your-username/gaokao-guide-web/actions/workflows/deploy.yml/badge.svg)](https://github.com/your-username/gaokao-guide-web/actions/workflows/deploy.yml)
 

@@ -6,6 +6,7 @@ import { useAppContext } from '../context/AppContext';
 import '../styles/pages.css';
 
 export const Home: React.FC = () => {
+  // 2026-05-23 - 修复部署问题
   const { favorites, comparisonList } = useAppContext();
   
   return (
