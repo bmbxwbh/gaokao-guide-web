@@ -11,7 +11,7 @@ import './styles/index.css';
 
 function App() {
   return (
-    <Router>
+    <Router basename="/gaokao-guide-web">
       <div className="App">
         <Routes>
           <Route path="/" element={<Home />} />
