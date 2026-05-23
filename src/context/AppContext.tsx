@@ -3,19 +3,14 @@ import type { Favorite, ComparisonItem, UserScores, RecommendationResult } from 
 import { universities } from '../data/universities';
 
 interface AppContextType {
-  // 收藏
   favorites: Favorite[];
   isFavorite: (type: 'UNIVERSITY' | 'MAJOR', targetId: string, universityId?: string) => boolean;
   toggleFavorite: (type: 'UNIVERSITY' | 'MAJOR', targetId: string, universityId?: string) => void;
-  
-  // 对比
   comparisonList: ComparisonItem[];
   addToComparison: (item: ComparisonItem) => void;
   removeFromComparison: (id: string) => void;
   isInComparison: (type: 'UNIVERSITY' | 'MAJOR', targetId: string) => boolean;
   clearComparison: () => void;
-  
-  // 推荐
   userScores: UserScores | null;
   setUserScores: (scores: UserScores | null) => void;
   selectedInterests: string[];
@@ -32,48 +27,77 @@ const COMPARISON_KEY = 'gaokao_comparison';
 const USER_SCORES_KEY = 'gaokao_user_scores';
 const INTERESTS_KEY = 'gaokao_interests';
 
+// 安全的 localStorage 操作
+const getLocalStorageItem = (key: string): string | null => {
+  if (typeof window === 'undefined') return null;
+  try {
+    return localStorage.getItem(key);
+  } catch {
+    return null;
+  }
+};
+
+const setLocalStorageItem = (key: string, value: string) => {
+  if (typeof window === 'undefined') return;
+  try {
+    localStorage.setItem(key, value);
+  } catch {}
+};
+
+const removeLocalStorageItem = (key: string) => {
+  if (typeof window === 'undefined') return;
+  try {
+    localStorage.removeItem(key);
+  } catch {}
+};
+
 export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [favorites, setFavorites] = useState<Favorite[]>(() => {
-    const saved = localStorage.getItem(FAVORITES_KEY);
-    return saved ? JSON.parse(saved) : [];
-  });
-
-  const [comparisonList, setComparisonList] = useState<ComparisonItem[]>(() => {
-    const saved = localStorage.getItem(COMPARISON_KEY);
-    return saved ? JSON.parse(saved) : [];
-  });
-
-  const [userScores, setUserScores] = useState<UserScores | null>(() => {
-    const saved = localStorage.getItem(USER_SCORES_KEY);
-    return saved ? JSON.parse(saved) : null;
-  });
-
-  const [selectedInterests, setSelectedInterests] = useState<string[]>(() => {
-    const saved = localStorage.getItem(INTERESTS_KEY);
-    return saved ? JSON.parse(saved) : [];
-  });
-
+  const [favorites, setFavorites] = useState<Favorite[]>([]);
+  const [comparisonList, setComparisonList] = useState<ComparisonItem[]>([]);
+  const [userScores, setUserScores] = useState<UserScores | null>(null);
+  const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
   const [recommendations, setRecommendations] = useState<RecommendationResult[]>([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // 客户端加载 localStorage 数据
+  useEffect(() => {
+    const savedFavorites = getLocalStorageItem(FAVORITES_KEY);
+    const savedComparison = getLocalStorageItem(COMPARISON_KEY);
+    const savedUserScores = getLocalStorageItem(USER_SCORES_KEY);
+    const savedInterests = getLocalStorageItem(INTERESTS_KEY);
+
+    if (savedFavorites) setFavorites(JSON.parse(savedFavorites));
+    if (savedComparison) setComparisonList(JSON.parse(savedComparison));
+    if (savedUserScores) setUserScores(JSON.parse(savedUserScores));
+    if (savedInterests) setSelectedInterests(JSON.parse(savedInterests));
+    
+    setIsLoaded(true);
+  }, []);
+
+  // 保存到 localStorage
+  useEffect(() => {
+    if (!isLoaded) return;
+    setLocalStorageItem(FAVORITES_KEY, JSON.stringify(favorites));
+  }, [favorites, isLoaded]);
 
   useEffect(() => {
-    localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
-  }, [favorites]);
+    if (!isLoaded) return;
+    setLocalStorageItem(COMPARISON_KEY, JSON.stringify(comparisonList));
+  }, [comparisonList, isLoaded]);
 
   useEffect(() => {
-    localStorage.setItem(COMPARISON_KEY, JSON.stringify(comparisonList));
-  }, [comparisonList]);
-
-  useEffect(() => {
+    if (!isLoaded) return;
     if (userScores) {
-      localStorage.setItem(USER_SCORES_KEY, JSON.stringify(userScores));
+      setLocalStorageItem(USER_SCORES_KEY, JSON.stringify(userScores));
     } else {
-      localStorage.removeItem(USER_SCORES_KEY);
+      removeLocalStorageItem(USER_SCORES_KEY);
     }
-  }, [userScores]);
+  }, [userScores, isLoaded]);
 
   useEffect(() => {
-    localStorage.setItem(INTERESTS_KEY, JSON.stringify(selectedInterests));
-  }, [selectedInterests]);
+    if (!isLoaded) return;
+    setLocalStorageItem(INTERESTS_KEY, JSON.stringify(selectedInterests));
+  }, [selectedInterests, isLoaded]);
 
   const isFavorite = (type: 'UNIVERSITY' | 'MAJOR', targetId: string, universityId?: string) => {
     return favorites.some(fav => 
