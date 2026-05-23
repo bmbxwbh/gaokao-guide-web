@@ -10,8 +10,11 @@ import { ComparisonPage } from './pages/ComparisonPage';
 import './styles/index.css';
 
 function App() {
+  const isProduction = window.location.hostname !== 'localhost' && 
+                      window.location.hostname !== '127.0.0.1'
+  
   return (
-    <Router basename="/gaokao-guide-web">
+    <Router basename={isProduction ? '/gaokao-guide-web' : '/'}>
       <div className="App">
         <Routes>
           <Route path="/" element={<Home />} />
