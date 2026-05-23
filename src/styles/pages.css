@@ -1,0 +1,566 @@
+/* Home Landing Page */
+.page-home-landing {
+  padding: var(--spacing-xl) 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-section {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+  padding: var(--spacing-lg) 0;
+}
+
+.hero-content h1 {
+  margin-bottom: var(--spacing-sm);
+  font-size: 2.5rem;
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  color: var(--primary-500);
+  margin-bottom: var(--spacing-sm);
+  font-weight: 500;
+}
+
+.hero-description {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.entry-sections {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-xl);
+}
+
+.entry-card {
+  padding: var(--spacing-lg);
+  text-align: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.entry-card-icon {
+  margin-bottom: var(--spacing);
+  color: var(--primary-500);
+}
+
+.entry-card-title {
+  margin-bottom: var(--spacing-sm);
+}
+
+.entry-card-description {
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-md);
+  flex: 1;
+}
+
+.entry-card-action {
+  margin-top: auto;
+}
+
+.home-footer {
+  text-align: center;
+  margin-top: auto;
+  padding: var(--spacing-md) 0;
+  color: var(--text-tertiary);
+  font-size: 0.875rem;
+}
+
+/* Universities Page (formerly home page) */
+.page-universities {
+  padding: var(--spacing-lg) 0;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.back-btn-container {
+  text-align: left;
+  margin-bottom: var(--spacing);
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+}
+
+.search-section {
+  margin-bottom: var(--spacing);
+}
+
+.filter-section {
+  margin-bottom: var(--spacing-md);
+}
+
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+.universities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.university-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.university-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-sm);
+  gap: var(--spacing-sm);
+}
+
+.university-info {
+  flex: 1;
+}
+
+.university-info h3 {
+  margin-bottom: var(--spacing-xs);
+}
+
+.university-short-name {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.university-description {
+  margin: var(--spacing-sm) 0;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: var(--spacing-xl);
+  color: var(--text-secondary);
+}
+
+/* University Detail Page */
+.page-detail {
+  padding: var(--spacing-md) 0 var(--spacing-lg);
+}
+
+.detail-header {
+  margin-bottom: var(--spacing-md);
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  color: var(--primary-500);
+  text-decoration: none;
+  font-weight: 500;
+  margin-bottom: var(--spacing);
+}
+
+.university-title {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing);
+  margin-bottom: var(--spacing-sm);
+}
+
+.university-title h1 {
+  margin: 0;
+}
+
+.basic-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing);
+  margin-top: var(--spacing);
+}
+
+.tabs-wrapper {
+  overflow-x: auto;
+  margin: var(--spacing-md) 0;
+}
+
+.tab-content {
+  padding-top: var(--spacing-sm);
+}
+
+/* Majors List */
+.majors-list {
+  display: grid;
+  gap: var(--spacing);
+}
+
+.major-card {
+  padding: var(--spacing-md);
+}
+
+.major-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-sm);
+}
+
+.major-scores {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-sm);
+  margin: var(--spacing-sm) 0;
+}
+
+.major-score-item {
+  text-align: center;
+  padding: var(--spacing-sm);
+  background: var(--surface-variant);
+  border-radius: var(--radius-sm);
+}
+
+.major-score-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary-500);
+}
+
+.major-score-label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.major-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--spacing-sm);
+}
+
+.major-detail-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--primary-500);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* Historical Scores */
+.scores-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.score-card {
+  padding: var(--spacing-md);
+}
+
+.year-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: var(--spacing);
+  color: var(--primary-500);
+}
+
+.score-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.score-category {
+  padding: var(--spacing);
+  background: var(--surface-variant);
+  border-radius: var(--radius);
+}
+
+.score-category h4 {
+  margin-bottom: var(--spacing-sm);
+  color: var(--text-secondary);
+}
+
+/* University Introduction */
+.intro-section {
+  display: grid;
+  gap: var(--spacing-md);
+}
+
+.key-disciplines {
+  margin-top: var(--spacing-sm);
+}
+
+/* Major Detail Page */
+.major-detail-page {
+  padding: var(--spacing-md) 0 var(--spacing-lg);
+}
+
+.major-detail-header {
+  margin-bottom: var(--spacing-md);
+}
+
+.major-detail-title {
+  margin-bottom: var(--spacing-sm);
+}
+
+.major-detail-title h1 {
+  margin: 0 0 var(--spacing-xs);
+}
+
+.major-detail-univ {
+  color: var(--primary-500);
+  font-weight: 500;
+}
+
+.detail-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing);
+  margin-bottom: var(--spacing-md);
+}
+
+.detail-section {
+  margin-bottom: var(--spacing-md);
+}
+
+.detail-section h3 {
+  margin-bottom: var(--spacing-sm);
+}
+
+/* Scores Page */
+.page-scores {
+  padding: var(--spacing-md) 0 var(--spacing-lg);
+}
+
+.filter-card {
+  margin-bottom: var(--spacing-md);
+}
+
+.filter-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.filter-group.filter-actions {
+  justify-content: flex-end;
+  padding-top: var(--spacing-sm);
+}
+
+.filter-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.select-wrapper {
+  width: 100%;
+}
+
+.filter-select {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  font-family: inherit;
+  background-color: var(--surface);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: var(--primary-400);
+  box-shadow: 0 0 0 3px rgba(52, 130, 255, 0.1);
+}
+
+.score-range-inputs {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.score-range-inputs .input-wrapper {
+  flex: 1;
+}
+
+.range-separator {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.result-summary {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing);
+}
+
+.result-count {
+  font-weight: 600;
+  color: var(--primary-500);
+  font-size: 1.125rem;
+}
+
+.scores-list {
+  display: grid;
+  gap: var(--spacing);
+}
+
+.score-card-item {
+  padding: var(--spacing-md);
+}
+
+.score-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing);
+}
+
+.score-card-header .university-info {
+  flex: 1;
+}
+
+.major-name {
+  margin-bottom: var(--spacing-xs);
+  color: var(--text-primary);
+}
+
+.university-name {
+  margin: 0 0 var(--spacing-xs);
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.major-code {
+  margin: 0;
+  color: var(--text-tertiary);
+  font-size: 0.8125rem;
+}
+
+.score-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+  color: white;
+  padding: var(--spacing-sm) var(--spacing);
+  border-radius: var(--radius-md);
+  min-width: 80px;
+}
+
+.score-badge .score-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.score-badge .score-label {
+  font-size: 0.75rem;
+  opacity: 0.9;
+  margin-top: 4px;
+}
+
+.score-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: var(--spacing);
+  padding-top: var(--spacing);
+  border-top: 1px solid var(--border);
+}
+
+.score-detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.detail-label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.detail-value {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .universities-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .score-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .major-scores {
+    grid-template-columns: 1fr;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  .university-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .score-card-header {
+    flex-direction: column;
+  }
+  
+  .score-badge {
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    gap: var(--spacing-sm);
+  }
+  
+  .score-badge .score-value {
+    font-size: 1.5rem;
+  }
+  
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+  
+  .entry-sections {
+    grid-template-columns: 1fr;
+  }
+}
