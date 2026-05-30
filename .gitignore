@@ -2,6 +2,7 @@
 build/
 *.kotlin_module
 *.class
+!gradle/wrapper/gradle-wrapper.jar
 *.jar
 *.log
 .kotlin/
