@@ -1,6 +1,8 @@
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+
 plugins {
-    alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.kotlinMultiplatform)
 }
 
@@ -15,7 +17,7 @@ kotlin {
         binaries.executable()
     }
 
-    @OptIn(org.jetbrains.kotlin.gradle.ExperimentalWasmDsl::class)
+    @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         outputModuleName = "gaokaoGuide"
         browser {

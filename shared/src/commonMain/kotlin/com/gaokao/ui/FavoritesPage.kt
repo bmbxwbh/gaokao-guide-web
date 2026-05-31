@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import top.yukonga.miuix.kmp.basic.ButtonDefaults
 import top.yukonga.miuix.kmp.basic.Card
-import top.yukonga.miuix.kmp.basic.MiuixTheme
+import top.yukonga.miuix.kmp.theme.MiuixTheme
 import top.yukonga.miuix.kmp.basic.Text
 import top.yukonga.miuix.kmp.basic.TextButton
 import top.yukonga.miuix.kmp.basic.TopAppBar
@@ -32,8 +32,8 @@ fun FavoritesPage(onNavigateToDetail: (String) -> Unit = {}) {
     var favorites by remember {
         mutableStateOf(
             listOf(
-                Favorite(id = "fav-1", type = "university", targetId = "xihua-university", universityId = "xihua-university", timestamp = System.currentTimeMillis()),
-                Favorite(id = "fav-2", type = "university", targetId = "chengdu-university", universityId = "chengdu-university", timestamp = System.currentTimeMillis())
+                Favorite(id = "fav-1", type = "university", targetId = "xihua-university", universityId = "xihua-university", timestamp = 0L),
+                Favorite(id = "fav-2", type = "university", targetId = "chengdu-university", universityId = "chengdu-university", timestamp = 0L)
             )
         )
     }

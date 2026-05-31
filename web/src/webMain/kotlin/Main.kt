@@ -1,7 +1,6 @@
 package com.gaokao.web
 
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableDoubleStateOf
@@ -11,9 +10,12 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.window.ComposeViewport
 import com.gaokao.GaokaoGuideApp
+import com.gaokao.platformGetCssVar
+import com.gaokao.platformHideLoading
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
+    platformHideLoading()
     ComposeViewport(viewportContainerId = "composeApp") {
         var insetTopPx by remember { mutableDoubleStateOf(0.0) }
         var insetBottomPx by remember { mutableDoubleStateOf(0.0) }
@@ -21,10 +23,10 @@ fun main() {
         var insetEndPx by remember { mutableDoubleStateOf(0.0) }
 
         LaunchedEffect(Unit) {
-            insetTopPx = getCssVar("--safe-area-inset-top")
-            insetStartPx = getCssVar("--safe-area-inset-left")
-            insetEndPx = getCssVar("--safe-area-inset-right")
-            insetBottomPx = getCssVar("--safe-area-inset-bottom")
+            insetTopPx = platformGetCssVar("--safe-area-inset-top")
+            insetStartPx = platformGetCssVar("--safe-area-inset-left")
+            insetEndPx = platformGetCssVar("--safe-area-inset-right")
+            insetBottomPx = platformGetCssVar("--safe-area-inset-bottom")
         }
 
         val safePadding = PaddingValues(
@@ -36,14 +38,4 @@ fun main() {
 
         GaokaoGuideApp(padding = safePadding)
     }
-}
-
-private fun getCssVar(name: String): Double {
-    val value = js("getComputedStyle(document.documentElement).getPropertyValue(name)")
-        .toString()
-        .trim()
-    if (value.endsWith("px")) {
-        return value.dropLast(2).toDoubleOrNull() ?: 0.0
-    }
-    return 0.0
 }

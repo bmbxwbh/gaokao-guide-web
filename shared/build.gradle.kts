@@ -6,13 +6,12 @@ plugins {
 }
 
 kotlin {
-    js(IR) {
-        browser()
-        binaries.executable()
-    }
-
     @OptIn(org.jetbrains.kotlin.gradle.ExperimentalWasmDsl::class)
     wasmJs {
+        browser()
+    }
+
+    js(IR) {
         browser()
         binaries.executable()
     }
@@ -29,8 +28,12 @@ kotlin {
             }
         }
 
-        val webMain by creating {
+        val skikoMain by creating {
             dependsOn(commonMain.get())
+        }
+
+        val webMain by creating {
+            dependsOn(skikoMain)
         }
 
         wasmJsMain {
