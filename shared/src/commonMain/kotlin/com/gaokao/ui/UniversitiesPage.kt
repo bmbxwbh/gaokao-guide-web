@@ -23,9 +23,9 @@ import androidx.compose.ui.unit.sp
 import top.yukonga.miuix.kmp.basic.ButtonDefaults
 import top.yukonga.miuix.kmp.basic.Card
 import top.yukonga.miuix.kmp.theme.MiuixTheme
-import top.yukonga.miuix.kmp.basic.Text
-import top.yukonga.miuix.kmp.basic.TextButton
-import top.yukonga.miuix.kmp.basic.TextField
+import com.gaokao.ui.Text
+import com.gaokao.ui.TextButton
+import com.gaokao.ui.TextField
 import top.yukonga.miuix.kmp.basic.TopAppBar
 import com.gaokao.data.UniversitiesData
 import com.gaokao.model.SubjectType

@@ -34,7 +34,7 @@ import com.gaokao.ui.UniversitiesPage
 import com.gaokao.ui.UniversityDetailPage
 import top.yukonga.miuix.kmp.basic.HorizontalDivider
 import top.yukonga.miuix.kmp.basic.Scaffold
-import top.yukonga.miuix.kmp.basic.Text
+import com.gaokao.ui.Text
 import top.yukonga.miuix.kmp.theme.MiuixTheme
 
 @Composable
