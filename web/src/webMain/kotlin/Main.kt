@@ -1,10 +1,13 @@
 package com.gaokao.web
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableDoubleStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.unit.Dp
@@ -12,6 +15,12 @@ import androidx.compose.ui.window.ComposeViewport
 import com.gaokao.GaokaoGuideApp
 import com.gaokao.platformGetCssVar
 import com.gaokao.platformHideLoading
+import lazyfont.LazyWebFontFamily
+import lazyfont.LocalLazyTextController
+import lazyfont.loadLazyWebFontFamily
+
+private const val DEFAULT_CSS_URL =
+    "https://cdn-font.hyperos.mi.com/font/css?family=MiSans_VF:VF:Chinese_Simplify,Latin&display=swap"
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
@@ -36,6 +45,14 @@ fun main() {
             end = Dp(insetEndPx.toFloat()),
         )
 
-        GaokaoGuideApp(padding = safePadding)
+        val scope = rememberCoroutineScope()
+        var controller by remember { mutableStateOf<LazyWebFontFamily?>(null) }
+        LaunchedEffect(Unit) {
+            controller = loadLazyWebFontFamily(DEFAULT_CSS_URL, scope)
+        }
+
+        CompositionLocalProvider(LocalLazyTextController provides controller) {
+            GaokaoGuideApp(padding = safePadding)
+        }
     }
 }
