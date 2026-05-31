@@ -164,7 +164,7 @@ fun MajorDetailPage(universityId: String, majorId: String) {
             item {
                 Card(modifier = Modifier.fillMaxWidth()) {
                     Column(modifier = Modifier.padding(16.dp)) {
-                        major.scores.toSortedMap(reverseOrder()).forEach { (year, score) ->
+                        major.scores.entries.sortedByDescending { it.key }.forEach { (year, score) ->
                             Text(year, fontWeight = FontWeight.Medium)
                             Spacer(modifier = Modifier.height(4.dp))
                             Row(

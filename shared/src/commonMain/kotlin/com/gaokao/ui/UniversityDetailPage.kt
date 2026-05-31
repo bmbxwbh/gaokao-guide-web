@@ -27,7 +27,7 @@ import top.yukonga.miuix.kmp.basic.TopAppBar
 import com.gaokao.data.UniversitiesData
 
 @Composable
-fun UniversityDetailPage(universityId: String, onNavigateToMajor: (String, String) -> Unit = {}) {
+fun UniversityDetailPage(universityId: String, onNavigateToMajor: (String, String) -> Unit = { _, _ -> }) {
     val university = remember(universityId) { UniversitiesData.getUniversityById(universityId) }
 
     if (university == null) {
@@ -106,7 +106,7 @@ fun UniversityDetailPage(universityId: String, onNavigateToMajor: (String, Strin
             item {
                 Card(modifier = Modifier.fillMaxWidth()) {
                     Column(modifier = Modifier.padding(16.dp)) {
-                        university.overviewScores.toSortedMap(reverseOrder()).forEach { (year, scores) ->
+                        university.overviewScores.entries.sortedByDescending { it.key }.forEach { (year, scores) ->
                             Text(year, fontWeight = FontWeight.Medium)
                             Spacer(modifier = Modifier.height(4.dp))
                             Row(

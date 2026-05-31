@@ -32,7 +32,7 @@ import com.gaokao.model.MajorScore
 import com.gaokao.model.SubjectType
 
 @Composable
-fun ScoresPage(onNavigateToDetail: (String, String) -> Unit = {}) {
+fun ScoresPage(onNavigateToDetail: (String, String) -> Unit = { _, _ -> }) {
     var searchQuery by remember { mutableStateOf("") }
     var selectedSubjectType by remember { mutableStateOf(SubjectType.PHYSICS) }
 
