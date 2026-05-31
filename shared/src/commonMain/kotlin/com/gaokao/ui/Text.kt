@@ -20,14 +20,15 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.TextUnit
 import lazyfont.LocalLazyTextController
 import lazyfont.LazyTextController
-import top.yukonga.miuix.kmp.theme.MiuixTheme
+import androidx.compose.foundation.text.TextAutoSize
+import top.yukonga.miuix.kmp.theme.LocalTextStyles
 
 @Composable
 fun Text(
     text: String,
     modifier: Modifier = Modifier,
     color: Color = Color.Unspecified,
-    autoSize: Any? = null,
+    autoSize: TextAutoSize? = null,
     fontSize: TextUnit = TextUnit.Unspecified,
     fontStyle: FontStyle? = null,
     fontWeight: FontWeight? = null,
@@ -41,7 +42,7 @@ fun Text(
     maxLines: Int = Int.MAX_VALUE,
     minLines: Int = 1,
     onTextLayout: ((TextLayoutResult) -> Unit)? = null,
-    style: TextStyle = MiuixTheme.textStyles.main,
+    style: TextStyle = LocalTextStyles.current.main,
 ) {
     val controller = LocalLazyTextController.current
     if (controller != null) {
@@ -58,6 +59,7 @@ fun Text(
         text = annotated,
         modifier = modifier,
         color = color,
+        autoSize = autoSize,
         fontSize = fontSize,
         fontStyle = fontStyle,
         fontWeight = fontWeight,
@@ -70,7 +72,7 @@ fun Text(
         softWrap = softWrap,
         maxLines = maxLines,
         minLines = minLines,
-        onTextLayout = onTextLayout,
+        onTextLayout = onTextLayout ?: {},
         style = style,
     )
 }
