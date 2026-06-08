@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.TextUnit
 import lazyfont.LocalLazyTextController
 import lazyfont.LazyTextController
 import androidx.compose.foundation.text.TextAutoSize
-import top.yukonga.miuix.kmp.basic.Text
+import top.yukonga.miuix.kmp.basic.Text as MiuixText
 import top.yukonga.miuix.kmp.theme.MiuixTheme
 
 @Composable
@@ -48,7 +48,7 @@ fun Text(
 ) {
     val controller = LocalLazyTextController.current
     if (controller == null) {
-        Text(
+        MiuixText(
             text = text,
             modifier = modifier,
             color = color,
@@ -74,7 +74,7 @@ fun Text(
     val annotated = remember(text, controller.revision) {
         buildSegmented(text, controller)
     }
-    Text(
+    MiuixText(
         text = annotated,
         modifier = modifier,
         color = color,
@@ -119,7 +119,7 @@ fun Text(
     onTextLayout: (TextLayoutResult) -> Unit = {},
     style: TextStyle = MiuixTheme.textStyles.main,
 ) {
-    Text(
+    MiuixText(
         text = text,
         modifier = modifier,
         color = color,
