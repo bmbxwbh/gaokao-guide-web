@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.TextUnit
 import lazyfont.LocalLazyTextController
 import lazyfont.LazyTextController
 import androidx.compose.foundation.text.TextAutoSize
+import top.yukonga.miuix.kmp.basic.Text
 import top.yukonga.miuix.kmp.theme.MiuixTheme
 
 @Composable
@@ -46,17 +47,34 @@ fun Text(
     style: TextStyle = MiuixTheme.textStyles.main,
 ) {
     val controller = LocalLazyTextController.current
-    if (controller != null) {
-        LaunchedEffect(text) { controller.requestText(text) }
+    if (controller == null) {
+        Text(
+            text = text,
+            modifier = modifier,
+            color = color,
+            autoSize = autoSize,
+            fontSize = fontSize,
+            fontStyle = fontStyle,
+            fontWeight = fontWeight,
+            fontFamily = fontFamily,
+            letterSpacing = letterSpacing,
+            textDecoration = textDecoration,
+            textAlign = textAlign,
+            lineHeight = lineHeight,
+            overflow = overflow,
+            softWrap = softWrap,
+            maxLines = maxLines,
+            minLines = minLines,
+            onTextLayout = onTextLayout,
+            style = style
+        )
+        return
     }
-    val annotated = if (controller != null) {
-        remember(text, controller.revision) {
-            buildSegmented(text, controller)
-        }
-    } else {
-        AnnotatedString(text)
+    LaunchedEffect(text) { controller.requestText(text) }
+    val annotated = remember(text, controller.revision) {
+        buildSegmented(text, controller)
     }
-    top.yukonga.miuix.kmp.basic.Text(
+    Text(
         text = annotated,
         modifier = modifier,
         color = color,
@@ -74,8 +92,8 @@ fun Text(
         maxLines = maxLines,
         minLines = minLines,
         inlineContent = mapOf(),
-        onTextLayout = onTextLayout ?: {},
-        style = style,
+        onTextLayout = onTextLayout,
+        style = style
     )
 }
 
@@ -101,7 +119,7 @@ fun Text(
     onTextLayout: (TextLayoutResult) -> Unit = {},
     style: TextStyle = MiuixTheme.textStyles.main,
 ) {
-    top.yukonga.miuix.kmp.basic.Text(
+    Text(
         text = text,
         modifier = modifier,
         color = color,
@@ -120,7 +138,7 @@ fun Text(
         minLines = minLines,
         inlineContent = inlineContent,
         onTextLayout = onTextLayout,
-        style = style,
+        style = style
     )
 }
 
@@ -156,7 +174,9 @@ private fun AnnotatedString.Builder.emitSegment(
     if (start >= end) return
     val slice = text.substring(start, end)
     if (family != null) {
-        withStyle(SpanStyle(fontFamily = family)) { append(slice) }
+        withStyle(SpanStyle(fontFamily = family)) {
+            append(slice)
+        }
     } else {
         append(slice)
     }
